@@ -39,6 +39,11 @@
             <artifactId>commons-codec</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-openai</artifactId>
+        </dependency>
+
         <!-- 扳手工程，通用设计模式框架 -->
         <dependency>
             <groupId>cn.bugstack.wrench</groupId>
@@ -50,6 +55,7 @@
             <groupId>cn.bugstack</groupId>
             <artifactId>ai-agent-station-study-li-types</artifactId>
         </dependency>
+
     </dependencies>
 
     <build>

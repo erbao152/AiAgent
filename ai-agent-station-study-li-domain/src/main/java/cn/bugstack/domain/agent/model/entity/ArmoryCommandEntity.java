@@ -1,6 +1,10 @@
 package cn.bugstack.domain.agent.model.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -11,6 +15,9 @@ import java.util.function.Predicate;
  * @Date 2026/4/8 19:34
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ArmoryCommandEntity {
 
 

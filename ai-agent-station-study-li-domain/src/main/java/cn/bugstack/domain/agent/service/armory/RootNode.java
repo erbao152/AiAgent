@@ -1,6 +1,7 @@
 package cn.bugstack.domain.agent.service.armory;
 
 import cn.bugstack.domain.agent.model.entity.ArmoryCommandEntity;
+import cn.bugstack.domain.agent.model.valobj.AiAgentEnumVO;
 import cn.bugstack.domain.agent.service.armory.business.data.ILoadDataStrategy;
 import cn.bugstack.domain.agent.service.armory.factory.DefaultArmoryStrategyFactory;
 import cn.bugstack.wrench.design.framework.tree.StrategyHandler;
@@ -19,9 +20,11 @@ import java.util.concurrent.TimeoutException;
 public class RootNode extends AbstractArmorySupport{
 
     private final Map<String, ILoadDataStrategy> loadDataStrategyMap;
+    private final AiClientApiNode aiClientApiNode;
 
-    public RootNode(Map<String, ILoadDataStrategy> loadDataStrategyMap) {
+    public RootNode(Map<String, ILoadDataStrategy> loadDataStrategyMap, AiClientApiNode aiClientApiNode) {
         this.loadDataStrategyMap = loadDataStrategyMap;
+        this.aiClientApiNode = aiClientApiNode;
     }
 
 
@@ -30,7 +33,11 @@ public class RootNode extends AbstractArmorySupport{
     @Override
     protected void multiThread(ArmoryCommandEntity requestParameter, DefaultArmoryStrategyFactory.DynamicContext dynamicContext) throws ExecutionException, InterruptedException, TimeoutException {
         String commandType = requestParameter.getCommandType();
-        ILoadDataStrategy loadDataStrategy = loadDataStrategyMap.get(commandType);
+
+        AiAgentEnumVO agentEnumVO = AiAgentEnumVO.getByCode(commandType);
+        String loadDataStrategyKey = agentEnumVO.getLoadDataStrategy();
+
+        ILoadDataStrategy loadDataStrategy = loadDataStrategyMap.get(loadDataStrategyKey);
         loadDataStrategy.loadData(requestParameter,dynamicContext);
     }
 
@@ -42,6 +49,6 @@ public class RootNode extends AbstractArmorySupport{
 
     @Override
     public StrategyHandler<ArmoryCommandEntity, DefaultArmoryStrategyFactory.DynamicContext, String> get(ArmoryCommandEntity armoryCommandEntity, DefaultArmoryStrategyFactory.DynamicContext dynamicContext) throws Exception {
-        return defaultStrategyHandler;
+        return aiClientApiNode;
     }
 }
