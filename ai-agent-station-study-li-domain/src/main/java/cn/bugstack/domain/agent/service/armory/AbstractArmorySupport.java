@@ -38,6 +38,13 @@ public abstract class AbstractArmorySupport extends AbstractMultiThreadStrategyR
     protected void multiThread(ArmoryCommandEntity requestParameter, DefaultArmoryStrategyFactory.DynamicContext dynamicContext) throws ExecutionException, InterruptedException, TimeoutException {
         // 缺省的
     }
+    protected String beanName(String id) {
+        return null;
+    }
+
+    protected String dataName() {
+        return null;
+    }
 
     protected synchronized  <T> void registorBean(String beanName,Class<T> beanClass,T beanInstance){
         // 1. 获取工厂对象
@@ -58,6 +65,10 @@ public abstract class AbstractArmorySupport extends AbstractMultiThreadStrategyR
 
         log.info("成功注册Bean: {}", beanName);
 
+    }
+
+    protected <T> T getBean(String beanName) {
+        return (T) applicationContext.getBean(beanName);
     }
 
 

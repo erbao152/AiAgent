@@ -2,6 +2,7 @@ package cn.bugstack.domain.agent.service.armory.business.data.impl;
 
 import cn.bugstack.domain.agent.adapter.repository.IAgentRepository;
 import cn.bugstack.domain.agent.model.entity.ArmoryCommandEntity;
+import cn.bugstack.domain.agent.model.valobj.AiAgentEnumVO;
 import cn.bugstack.domain.agent.model.valobj.AiClientApiVO;
 import cn.bugstack.domain.agent.model.valobj.AiClientModelVO;
 import cn.bugstack.domain.agent.model.valobj.AiClientToolMcpVO;
@@ -50,6 +51,16 @@ public class AiClientModelLoadDataStrategy implements ILoadDataStrategy {
             log.info("查询配置数据(ai_client_model) {}", modelIdList);
             return repository.AiClientToolMcpVOByModelIds(modelIdList);
         }, threadPoolExecutor);
+
+        // 将查找到的信息填充到上下文中
+        CompletableFuture.allOf(aiClientApiListFuture,
+                aiClientModelListFuture,
+                aiClientToolMcpListFuture)
+                .thenRun(()->{
+            dynamicContext.setValue(AiAgentEnumVO.AI_CLIENT_API.getDataName(), aiClientApiListFuture.join());
+            dynamicContext.setValue(AiAgentEnumVO.AI_CLIENT_MODEL.getDataName(), aiClientModelListFuture.join());
+            dynamicContext.setValue(AiAgentEnumVO.AI_CLIENT_TOOL_MCP.getDataName(), aiClientToolMcpListFuture.join());
+        }).join();
     }
 
 }
