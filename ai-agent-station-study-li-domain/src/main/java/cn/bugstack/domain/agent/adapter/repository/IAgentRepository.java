@@ -3,6 +3,7 @@ package cn.bugstack.domain.agent.adapter.repository;
 import cn.bugstack.domain.agent.model.valobj.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author erbao
@@ -17,6 +18,7 @@ public interface IAgentRepository {
     List<AiClientToolMcpVO> queryAiClientToolMcpVOByClientIds(List<String> clientIdList);
 
     List<AiClientSystemPromptVO> AiClientSystemPromptVOByClientIds(List<String> clientIdList);
+    Map<String,AiClientSystemPromptVO> AiClientSystemPromptMapByClientIds(List<String> clientIdList);
 
     List<AiClientAdvisorVO> AiClientAdvisorVOByClientIds(List<String> clientIdList);
 

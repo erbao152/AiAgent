@@ -15,6 +15,7 @@ import static cn.bugstack.domain.agent.model.valobj.AiAgentEnumVO.AI_CLIENT;
 import static cn.bugstack.domain.agent.model.valobj.AiAgentEnumVO.AI_CLIENT_MODEL;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Author erbao
@@ -259,6 +260,25 @@ public class AgentRepository implements IAgentRepository {
         }
 
         return result;
+    }
+
+    @Override
+    public Map<String, AiClientSystemPromptVO> AiClientSystemPromptMapByClientIds(List<String> clientIdList) {
+        List<AiClientSystemPromptVO> aiClientSystemPromptVOS = AiClientSystemPromptVOByClientIds(clientIdList);
+        if (null == aiClientSystemPromptVOS || aiClientSystemPromptVOS.isEmpty()) {
+            return Collections.emptyMap();
+        }
+        // 使用lambda表达式，将AiClientSystemPromptVOS -> Map<String,将AiClientSystemPromptVO>
+        return aiClientSystemPromptVOS.stream()
+                .map(prompt -> AiClientSystemPromptVO.builder()
+                        .promptId(prompt.getPromptId())
+                        .promptContent(prompt.getPromptContent())
+                        .build())
+                .collect(Collectors.toMap(
+                        AiClientSystemPromptVO::getPromptId,  // key: id
+                        prompt -> prompt,               // value: AiClientSystemPromptVO对象
+                        (existing, replacement) -> existing  // 如果有重复key，保留第一个
+                ));
     }
 
     @Override
@@ -509,7 +529,8 @@ public class AgentRepository implements IAgentRepository {
                             ObjectMapper objectMapper = new ObjectMapper();
                             transportConfigSse = objectMapper.readValue(transportConfig, AiClientToolMcpVO.TransportConfigSse.class);
                         } else if ("stdio".equals(aiClientToolMcp.getTransportType())) {
-                            Map<String,AiClientToolMcpVO.TransportConfigStdio.Stdio> stdio = JSON.parseObject(transportConfig,new TypeReference<>(){});
+                            Map<String, AiClientToolMcpVO.TransportConfigStdio.Stdio> stdio = JSON.parseObject(transportConfig, new TypeReference<>() {
+                            });
                             transportConfigStdio.setStdio(stdio);
                         }
                     } catch (Exception e) {
