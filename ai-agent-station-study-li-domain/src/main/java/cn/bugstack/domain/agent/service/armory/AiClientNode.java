@@ -1,8 +1,7 @@
 package cn.bugstack.domain.agent.service.armory;
 
 import cn.bugstack.domain.agent.model.entity.ArmoryCommandEntity;
-import cn.bugstack.domain.agent.model.valobj.AiAgentEnumVO;
-import cn.bugstack.domain.agent.model.valobj.AiClientAdvisorVO;
+import cn.bugstack.domain.agent.model.valobj.enums.AiAgentEnumVO;
 import cn.bugstack.domain.agent.model.valobj.AiClientSystemPromptVO;
 import cn.bugstack.domain.agent.model.valobj.AiClientVO;
 import cn.bugstack.domain.agent.service.armory.factory.DefaultArmoryStrategyFactory;

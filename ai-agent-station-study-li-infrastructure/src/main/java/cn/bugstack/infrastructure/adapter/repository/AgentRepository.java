@@ -2,6 +2,7 @@ package cn.bugstack.infrastructure.adapter.repository;
 
 import cn.bugstack.domain.agent.adapter.repository.IAgentRepository;
 import cn.bugstack.domain.agent.model.valobj.*;
+import cn.bugstack.domain.agent.model.valobj.enums.AiAgentEnumVO;
 import cn.bugstack.infrastructure.dao.*;
 import cn.bugstack.infrastructure.dao.po.*;
 import com.alibaba.fastjson.JSON;
@@ -11,8 +12,8 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
-import static cn.bugstack.domain.agent.model.valobj.AiAgentEnumVO.AI_CLIENT;
-import static cn.bugstack.domain.agent.model.valobj.AiAgentEnumVO.AI_CLIENT_MODEL;
+import static cn.bugstack.domain.agent.model.valobj.enums.AiAgentEnumVO.AI_CLIENT;
+import static cn.bugstack.domain.agent.model.valobj.enums.AiAgentEnumVO.AI_CLIENT_MODEL;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -550,6 +551,45 @@ public class AgentRepository implements IAgentRepository {
             }
         }
         return result;
+    }
+
+    @Override
+    public Map<String, AiAgentClientFlowConfigVO> queryAiAgentClientFlowConfig(String aiAgentId) {
+        // 判断传进来的aiAgentId，根据agentId获取agengConfigList，遍历list，将其装入map中
+        if (aiAgentId == null || aiAgentId.isEmpty()){
+            return Map.of();
+        }
+
+        try {
+            // 根据智能体ID查询流程配置列表
+            List<AiAgentFlowConfig> flowConfigs = aiAgentFlowConfigDao.queryByAgentId(aiAgentId);
+
+            if (flowConfigs == null || flowConfigs.isEmpty()) {
+                return Map.of();
+            }
+
+            // 转换为Map结构，key为clientId，value为AiAgentClientFlowConfigVO
+            Map<String, AiAgentClientFlowConfigVO> result = new HashMap<>();
+
+            for (AiAgentFlowConfig flowConfig : flowConfigs) {
+                AiAgentClientFlowConfigVO configVO = AiAgentClientFlowConfigVO.builder()
+                        .clientId(flowConfig.getClientId())
+                        .clientName(flowConfig.getClientName())
+                        .clientType(flowConfig.getClientType())
+                        .sequence(flowConfig.getSequence())
+                        .build();
+
+                result.put(flowConfig.getClientType(), configVO);
+            }
+
+            return result;
+        } catch (NumberFormatException e) {
+            log.error("Invalid aiAgentId format: {}", aiAgentId, e);
+            return Map.of();
+        } catch (Exception e) {
+            log.error("Query ai agent client flow config failed, aiAgentId: {}", aiAgentId, e);
+            return Map.of();
+        }
     }
 
 

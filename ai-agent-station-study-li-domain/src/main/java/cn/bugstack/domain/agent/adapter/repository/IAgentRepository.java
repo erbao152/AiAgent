@@ -20,6 +20,7 @@ public interface IAgentRepository {
     List<AiClientSystemPromptVO> AiClientSystemPromptVOByClientIds(List<String> clientIdList);
     Map<String,AiClientSystemPromptVO> AiClientSystemPromptMapByClientIds(List<String> clientIdList);
 
+
     List<AiClientAdvisorVO> AiClientAdvisorVOByClientIds(List<String> clientIdList);
 
     List<AiClientVO> AiClientVOByClientIds(List<String> clientIdList);
@@ -29,4 +30,6 @@ public interface IAgentRepository {
     List<AiClientModelVO> AiClientModelVOByModelIds(List<String> modelIdList);
 
     List<AiClientToolMcpVO> AiClientToolMcpVOByModelIds(List<String> modelIdList);
+
+    Map<String, AiAgentClientFlowConfigVO> queryAiAgentClientFlowConfig(String aiAgentId);
 }

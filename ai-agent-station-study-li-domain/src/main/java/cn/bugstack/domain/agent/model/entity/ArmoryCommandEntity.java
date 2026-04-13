@@ -1,14 +1,12 @@
 package cn.bugstack.domain.agent.model.entity;
 
-import cn.bugstack.domain.agent.model.valobj.AiAgentEnumVO;
+import cn.bugstack.domain.agent.model.valobj.enums.AiAgentEnumVO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 /**
  * @Author erbao
