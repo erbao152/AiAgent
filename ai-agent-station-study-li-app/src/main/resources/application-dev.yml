@@ -44,11 +44,12 @@ spring:
   ai:
     openai:
       base-url: https://apis.itedus.cn
-      api-key: sk-ZKSeZ1hTgCayXH7Z5cC9Fe6895404d08BbCd31DfAf61EdEa
+      api-key: sk-O3qHxkieZLsZRq670bD826627eCe4bB9Bd5cC8Da9f60A12c
     agent:
       auto-config:
         enabled: true
-        client-ids: 3101,3102,3103,3104
+        client-ids: 3101,3102,3103,3104,4101,4102,4103,4104
+    # http://192.168.32.128:5601/ es
 
 # MyBatis 配置【如需使用记得打开】
 #mybatis:

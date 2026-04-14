@@ -577,6 +577,7 @@ public class AgentRepository implements IAgentRepository {
                         .clientName(flowConfig.getClientName())
                         .clientType(flowConfig.getClientType())
                         .sequence(flowConfig.getSequence())
+                        .stepPrompt(flowConfig.getStepPrompt())
                         .build();
 
                 result.put(flowConfig.getClientType(), configVO);

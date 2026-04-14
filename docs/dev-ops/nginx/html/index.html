@@ -334,7 +334,8 @@
                 <div class="flex items-center gap-2">
                     <label for="aiAgentSelect" class="text-sm font-medium text-gray-700">智能体类型</label>
                     <select id="aiAgentSelect" class="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-300 focus:border-primary-500 outline-none transition-all duration-200">
-                        <option value="3">Auto Agent - 自动智能对话体</option>
+                        <option value="3">Auto Agent - 自动智能对话体-3</option>
+                        <option value="4">Auto Agent - 自动智能对话体-4</option>
                     </select>
                 </div>
 
@@ -353,9 +354,10 @@
                     <label for="exampleSelect" class="text-sm font-medium text-gray-700">提问案例</label>
                     <select id="exampleSelect" class="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-300 focus:border-primary-500 outline-none transition-all duration-200">
                         <option value="">请选择提问案例...</option>
-                        <option value="1+1">1+1</option>
-                        <option value="检索小傅哥的相关项目，列出一份学习计划">检索小傅哥的相关项目，列出一份学习计划</option>
-                        <option value="根据当前北京互联网程序员加班情况，收入，公司文化等，列出一份大学生推荐入职单位。">根据当前北京互联网程序员加班情况，收入，公司文化等，列出一份大学生推荐入职单位。</option>
+                        <option value="1+1">案例1；1+1</option>
+                        <option value="通过ES查询被限流的用户，给出被限流用户列表。">案例2；通过ES查询被限流的用户，给出被限流用户列表。</option>
+                        <option value="检索小傅哥的相关项目，列出一份学习计划">案例3；检索小傅哥的相关项目，列出一份学习计划</option>
+                        <option value="根据当前北京互联网程序员加班情况，收入，公司文化等，列出一份大学生推荐入职单位。">案例4；根据当前北京互联网程序员加班情况，收入，公司文化等，列出一份大学生推荐入职单位。</option>
                     </select>
                 </div>
             </div>
@@ -492,86 +494,86 @@
             },
             body: JSON.stringify(requestData)
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('网络请求失败: ' + response.status);
-            }
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('网络请求失败: ' + response.status);
+                }
 
-            // 处理流式响应
-            const reader = response.body.getReader();
-            const decoder = new TextDecoder();
+                // 处理流式响应
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
 
-            // 清空当前步骤消息缓存
-            currentStepMessages.clear();
+                // 清空当前步骤消息缓存
+                currentStepMessages.clear();
 
-            // 清空之前的AI消息（保留欢迎消息）
-            const thinkingDiv = document.getElementById('thinkingMessages');
-            const resultDiv = document.getElementById('resultMessages');
+                // 清空之前的AI消息（保留欢迎消息）
+                const thinkingDiv = document.getElementById('thinkingMessages');
+                const resultDiv = document.getElementById('resultMessages');
 
-            // 清空思考面板（保留第一条欢迎消息）
-            const thinkingChildren = Array.from(thinkingDiv.children);
-            thinkingChildren.slice(1).forEach(child => child.remove());
+                // 清空思考面板（保留第一条欢迎消息）
+                const thinkingChildren = Array.from(thinkingDiv.children);
+                thinkingChildren.slice(1).forEach(child => child.remove());
 
-            // 清空结果面板（保留第一条欢迎消息）
-            const resultChildren = Array.from(resultDiv.children);
-            resultChildren.slice(1).forEach(child => child.remove());
+                // 清空结果面板（保留第一条欢迎消息）
+                const resultChildren = Array.from(resultDiv.children);
+                resultChildren.slice(1).forEach(child => child.remove());
 
-            isConnected = true;
+                isConnected = true;
 
-            function readStream() {
-                reader.read().then(({ done, value }) => {
-                    if (done) {
-                        // Stream ended
+                function readStream() {
+                    reader.read().then(({ done, value }) => {
+                        if (done) {
+                            // Stream ended
+                            isConnected = false;
+                            sendBtn.disabled = false;
+                            document.getElementById('loading').style.display = 'none';
+                            // 添加完成标识
+                            addStageMessage('complete', null, '任务执行完成', null);
+                            return;
+                        }
+
+                        // Decode data chunk
+                        const chunk = decoder.decode(value, { stream: true });
+
+                        // Process server-sent event stream data
+                        const lines = chunk.split('\n');
+                        for (let line of lines) {
+                            if (line.startsWith('data: ')) {
+                                const data = line.substring(6).trim();
+                                if (data && data !== '[DONE]') {
+                                    try {
+                                        // Try to parse JSON data
+                                        const jsonData = JSON.parse(data);
+                                        handleSSEMessage(jsonData);
+                                    } catch (e) {
+                                        // If not JSON, treat as plain text
+                                        console.warn('无法解析JSON数据:', data);
+                                        addStageMessage('error', null, data, null);
+                                    }
+                                    // Scroll to bottom after adding content
+                                    scrollToBottom();
+                                }
+                            }
+                        }
+                        // Continue reading the stream
+                        readStream();
+                    }).catch(error => {
+                        console.error('读取流数据错误:', error);
                         isConnected = false;
                         sendBtn.disabled = false;
                         document.getElementById('loading').style.display = 'none';
-                        // 添加完成标识
-                        addStageMessage('complete', null, '任务执行完成', null);
-                        return;
-                    }
-
-                    // Decode data chunk
-                    const chunk = decoder.decode(value, { stream: true });
-
-                    // Process server-sent event stream data
-                    const lines = chunk.split('\n');
-                    for (let line of lines) {
-                        if (line.startsWith('data: ')) {
-                            const data = line.substring(6).trim();
-                            if (data && data !== '[DONE]') {
-                                try {
-                                    // Try to parse JSON data
-                                    const jsonData = JSON.parse(data);
-                                    handleSSEMessage(jsonData);
-                                } catch (e) {
-                                    // If not JSON, treat as plain text
-                                    console.warn('无法解析JSON数据:', data);
-                                    addStageMessage('error', null, data, null);
-                                }
-                                // Scroll to bottom after adding content
-                                scrollToBottom();
-                            }
-                        }
-                    }
-                    // Continue reading the stream
-                    readStream();
-                }).catch(error => {
-                    console.error('读取流数据错误:', error);
-                    isConnected = false;
-                    sendBtn.disabled = false;
-                    document.getElementById('loading').style.display = 'none';
-                    addStageMessage('error', null, '连接中断，请重试', null);
-                });
-            }
-            readStream();
-        })
-        .catch(error => {
-            console.error('请求错误:', error);
-            isConnected = false;
-            sendBtn.disabled = false;
-            document.getElementById('loading').style.display = 'none';
-            addStageMessage('error', null, '请求失败: ' + error.message, null);
-        });
+                        addStageMessage('error', null, '连接中断，请重试', null);
+                    });
+                }
+                readStream();
+            })
+            .catch(error => {
+                console.error('请求错误:', error);
+                isConnected = false;
+                sendBtn.disabled = false;
+                document.getElementById('loading').style.display = 'none';
+                addStageMessage('error', null, '请求失败: ' + error.message, null);
+            });
     }
 
     // 处理SSE消息

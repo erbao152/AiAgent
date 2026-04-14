@@ -98,7 +98,7 @@ public class AgentTest {
         String content = chatClient.prompt(Prompt.builder()
                 .messages(new UserMessage(
                         """
-                                有哪些工具可以使用
+                                有哪些mcp工具可以使用
                                 """))
                 .build()).call().content();
 
