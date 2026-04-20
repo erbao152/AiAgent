@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter
  * @Date 2026/4/13 11:09
  */
 @Slf4j
-@Service
+@Service("autoAgentExecuteStrategy")
 public class AutoAgentExecuteStrategy implements IExecuteStrategy {
     @Resource
     private DefaultAutoAgentExecuteStrategyFactory factory;
