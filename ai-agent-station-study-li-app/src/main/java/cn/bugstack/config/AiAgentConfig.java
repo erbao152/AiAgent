@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 @Configuration
@@ -29,7 +30,7 @@ public class AiAgentConfig {
      * SELECT * FROM vector_store_openai
      */
     @Bean("vectorStore")
-    @ConditionalOnBean(name = "pgVectorJdbcTemplate")
+    @Primary
     public PgVectorStore pgVectorStore(@Value("${spring.ai.openai.base-url}") String baseUrl,
                                        @Value("${spring.ai.openai.api-key}") String apiKey,
                                        @Qualifier("pgVectorJdbcTemplate") JdbcTemplate jdbcTemplate) {

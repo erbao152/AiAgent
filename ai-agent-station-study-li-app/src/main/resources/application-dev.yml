@@ -33,7 +33,7 @@ spring:
     pgvector:
       driver-class-name: org.postgresql.Driver
       username: postgres
-      password: postgres
+      password: 123456ok
       url: jdbc:postgresql://36.150.231.167:15432/ai-rag-knowledge
       type: com.zaxxer.hikari.HikariDataSource
       hikari:
@@ -47,7 +47,7 @@ spring:
       api-key: sk-O3qHxkieZLsZRq670bD826627eCe4bB9Bd5cC8Da9f60A12c
     agent:
       auto-config:
-        enabled: true
+        enabled: false
         client-ids: 3101,3102,3103,3104,4101,4102,4103,4104
     # http://192.168.32.128:5601/ es
 
