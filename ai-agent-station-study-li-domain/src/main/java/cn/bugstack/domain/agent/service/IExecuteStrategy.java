@@ -1,4 +1,4 @@
-package cn.bugstack.domain.agent.service.execute;
+package cn.bugstack.domain.agent.service;
 
 
 import cn.bugstack.domain.agent.model.entity.ExecuteCommandEntity;

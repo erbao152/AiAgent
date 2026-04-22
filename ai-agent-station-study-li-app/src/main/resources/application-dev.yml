@@ -48,7 +48,7 @@ spring:
     agent:
       auto-config:
         enabled: true
-        client-ids: 2101,2102,2103
+        client-ids: 6101
     # http://192.168.32.128:5601/ es
     # apiKey：bce-v3/ALTAK-dPLZ7O7MC4kTDXnXn21W6/211bc61af73233a3bb422e0573e38d52fb3398c2
 

@@ -4,7 +4,7 @@ import cn.bugstack.domain.agent.adapter.repository.IAgentRepository;
 import cn.bugstack.domain.agent.model.entity.ExecuteCommandEntity;
 import cn.bugstack.domain.agent.model.valobj.AiAgentVO;
 import cn.bugstack.domain.agent.service.IAgentDispatchService;
-import cn.bugstack.domain.agent.service.execute.IExecuteStrategy;
+import cn.bugstack.domain.agent.service.IExecuteStrategy;
 import cn.bugstack.types.exception.BizException;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

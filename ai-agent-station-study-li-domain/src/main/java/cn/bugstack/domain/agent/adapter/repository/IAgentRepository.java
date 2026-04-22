@@ -34,4 +34,10 @@ public interface IAgentRepository {
     Map<String, AiAgentClientFlowConfigVO> queryAiAgentClientFlowConfig(String aiAgentId);
 
     AiAgentVO queryAiAgentById(String aiAgentId);
+
+    List<AiAgentClientFlowConfigVO> queryAiAgentClientFlowConfigByAiAgentId(String aiAgentId);
+
+    List<AiAgentTaskScheduleVO> queryAllValidTaskSchedule();
+
+    List<Long> queryAllInvalidTaskScheduleIds();
 }
