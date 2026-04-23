@@ -2,6 +2,7 @@ package cn.bugstack.infrastructure.dao;
 
 import cn.bugstack.infrastructure.dao.po.AiClientConfig;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -75,7 +76,7 @@ public interface IAiClientConfigDao {
      * @param sourceId 源ID
      * @return AI客户端配置对象列表
      */
-    List<AiClientConfig> queryBySourceTypeAndId(String sourceType, String sourceId);
+    List<AiClientConfig> queryBySourceTypeAndId(@Param("sourceType") String sourceType, @Param("sourceId") String sourceId);
 
     /**
      * 根据目标类型和目标ID查询AI客户端配置
@@ -83,7 +84,20 @@ public interface IAiClientConfigDao {
      * @param targetId 目标ID
      * @return AI客户端配置对象列表
      */
-    List<AiClientConfig> queryByTargetTypeAndId(String targetType, String targetId);
+    List<AiClientConfig> queryByTargetTypeAndId(@Param("targetType") String targetType, @Param("targetId") String targetId);
+
+    /**
+     * 根据源类型、源ID、目标类型、目标ID查询AI客户端配置
+     * @param sourceType 源类型
+     * @param sourceId 源ID
+     * @param targetType 目标类型
+     * @param targetId 目标ID
+     * @return AI客户端配置对象列表
+     */
+    List<AiClientConfig> queryByConditions(@Param("sourceType") String sourceType,
+                                           @Param("sourceId") String sourceId,
+                                           @Param("targetType") String targetType,
+                                           @Param("targetId") String targetId);
 
     /**
      * 查询启用状态的AI客户端配置

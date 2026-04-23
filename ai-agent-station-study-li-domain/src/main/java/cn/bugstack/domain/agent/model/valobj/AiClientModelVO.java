@@ -39,7 +39,7 @@ public class AiClientModelVO {
     private String modelType;
 
     /**
-     * 模型对应mcpIds
+     * 工具 mcp ids
      */
     private List<String> toolMcpIds;
 

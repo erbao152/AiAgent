@@ -1,21 +1,27 @@
-package cn.bugstack.domain.agent.model.valobj;
+package cn.bugstack.api.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
- * AI智能体配置值对象
+ * AI智能体响应 DTO
  *
  * @author xiaofuge bugstack.cn @小傅哥
- * 2025/9/2 07:05
+ * @description AI智能体响应数据传输对象
  */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AiAgentVO {
+public class AiAgentResponseDTO implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     /**
      * 智能体ID

@@ -47,8 +47,7 @@ spring:
       api-key: sk-O3qHxkieZLsZRq670bD826627eCe4bB9Bd5cC8Da9f60A12c
     agent:
       auto-config:
-        enabled: true
-        client-ids: 6101
+        enabled: false
     # http://192.168.32.128:5601/ es
     # apiKey：bce-v3/ALTAK-dPLZ7O7MC4kTDXnXn21W6/211bc61af73233a3bb422e0573e38d52fb3398c2
 
@@ -56,6 +55,19 @@ spring:
 #mybatis:
 #  mapper-locations: classpath:/mybatis/mapper/*.xml
 #  config-location:  classpath:/mybatis/config/mybatis-config.xml
+
+xfg:
+  wrench:
+    # 任务调度配置
+    task:
+      job:
+        enabled: true
+        pool-size: 5
+        thread-name-prefix: "test-task-scheduler-"
+        wait-for-tasks-to-complete-on-shutdown: true
+        await-termination-seconds: 30
+        refresh-interval: 30000
+        clean-invalid-tasks-cron: "0 0/5 * * * ?"
 
 # 日志
 logging:

@@ -40,6 +40,10 @@
             <groupId>cn.bugstack</groupId>
             <artifactId>ai-agent-station-study-li-domain</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.bugstack</groupId>
+            <artifactId>ai-agent-station-study-li-infrastructure</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
