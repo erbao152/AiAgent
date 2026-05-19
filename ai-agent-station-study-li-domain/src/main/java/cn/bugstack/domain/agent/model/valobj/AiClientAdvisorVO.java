@@ -8,8 +8,7 @@ import lombok.NoArgsConstructor;
 /**
  * 顾问配置，值对象
  *
- * @author xiaofuge bugstack.cn @小傅哥
- * 2025/6/27 18:42
+ * @author erbao
  */
 @Data
 @Builder

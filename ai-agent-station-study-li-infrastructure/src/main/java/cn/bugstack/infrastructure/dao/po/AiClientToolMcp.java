@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 /**
  * MCP客户端配置表
- * @author bugstack虫洞栈
+ * @author erbao
  * @description MCP客户端配置表 PO 对象
  */
 @Data

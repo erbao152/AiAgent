@@ -33,8 +33,7 @@ import java.util.UUID;
 /**
  * 拖拉拽
  *
- * @author xiaofuge bugstack.cn @小傅哥
- * 2025/9/28 07:35
+ * @author erbao
  */
 @Slf4j
 @RestController
@@ -121,10 +120,6 @@ public class AiAgentDrawAdminController implements IAiAgentDrawAdminService {
         try {
             log.info("保存流程图配置请求：{}", request);
 
-            // 生成8位数字的唯一AgentId
-            String agentId = String.format("%08d", System.currentTimeMillis() % 100000000L);
-            request.setAgentId(agentId);
-
             // 参数校验
             if (!StringUtils.hasText(request.getConfigName())) {
                 return Response.<String>builder()
@@ -140,22 +135,6 @@ public class AiAgentDrawAdminController implements IAiAgentDrawAdminService {
                         .build();
             }
 
-            // 解析JSON中的agent信息
-            String[] agentInfo = parseAgentInfoFromJson(request.getConfigData());
-            String agentName = agentInfo[0];
-            String description = agentInfo[1];
-            String channel = agentInfo[2];
-            String strategy = agentInfo[3];
-
-            aiAgentDao.insert(AiAgent.builder()
-                    .agentId(request.getAgentId())
-                    .agentName(agentName)
-                    .channel(channel)
-                    .strategy(strategy)
-                    .status(1)
-                    .description(description)
-                    .build());
-
             // 生成配置ID（如果没有提供）
             String configId = request.getConfigId();
             if (!StringUtils.hasText(configId)) {
@@ -164,6 +143,63 @@ public class AiAgentDrawAdminController implements IAiAgentDrawAdminService {
 
             // 检查配置是否已存在
             AiAgentDrawConfig existingConfig = aiAgentDrawConfigDao.queryByConfigId(configId);
+
+            String agentId;
+            if (existingConfig != null && StringUtils.hasText(existingConfig.getAgentId())) {
+                agentId = existingConfig.getAgentId();
+            } else if (StringUtils.hasText(request.getAgentId())) {
+                agentId = request.getAgentId();
+            } else {
+                agentId = String.format("%08d", System.currentTimeMillis() % 100000000L);
+            }
+
+            request.setConfigId(configId);
+            request.setAgentId(agentId);
+
+            // 解析JSON中的agent信息
+            String[] agentInfo = parseAgentInfoFromJson(request.getConfigData());
+            String agentName = agentInfo[0];
+            String description = agentInfo[1];
+            String channel = agentInfo[2];
+            String strategy = agentInfo[3];
+
+            LocalDateTime now = LocalDateTime.now();
+            if (existingConfig != null) {
+                AiAgent existingAgent = aiAgentDao.queryByAgentId(agentId);
+                if (existingAgent != null) {
+                    aiAgentDao.updateByAgentId(AiAgent.builder()
+                            .agentId(agentId)
+                            .agentName(agentName)
+                            .channel(channel)
+                            .strategy(strategy)
+                            .status(1)
+                            .description(description)
+                            .updateTime(now)
+                            .build());
+                } else {
+                    aiAgentDao.insert(AiAgent.builder()
+                            .agentId(agentId)
+                            .agentName(agentName)
+                            .channel(channel)
+                            .strategy(strategy)
+                            .status(1)
+                            .description(description)
+                            .createTime(now)
+                            .updateTime(now)
+                            .build());
+                }
+            } else {
+                aiAgentDao.insert(AiAgent.builder()
+                        .agentId(agentId)
+                        .agentName(agentName)
+                        .channel(channel)
+                        .strategy(strategy)
+                        .status(1)
+                        .description(description)
+                        .createTime(now)
+                        .updateTime(now)
+                        .build());
+            }
 
             AiAgentDrawConfig drawConfig = new AiAgentDrawConfig();
             BeanUtils.copyProperties(request, drawConfig);
@@ -176,13 +212,13 @@ public class AiAgentDrawAdminController implements IAiAgentDrawAdminService {
                 // 更新现有配置
                 drawConfig.setId(existingConfig.getId());
                 drawConfig.setVersion(existingConfig.getVersion() + 1);
-                drawConfig.setUpdateTime(LocalDateTime.now());
+                drawConfig.setUpdateTime(now);
                 result = aiAgentDrawConfigDao.updateByConfigId(drawConfig);
                 log.info("更新流程图配置，configId: {}, result: {}", configId, result);
             } else {
                 // 创建新配置
-                drawConfig.setCreateTime(LocalDateTime.now());
-                drawConfig.setUpdateTime(LocalDateTime.now());
+                drawConfig.setCreateTime(now);
+                drawConfig.setUpdateTime(now);
                 result = aiAgentDrawConfigDao.insert(drawConfig);
                 log.info("创建流程图配置，configId: {}, result: {}", configId, result);
             }

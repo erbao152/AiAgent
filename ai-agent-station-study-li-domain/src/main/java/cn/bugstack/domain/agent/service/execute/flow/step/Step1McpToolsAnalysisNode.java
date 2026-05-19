@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @Author erbao
- * @description:
+ * @description: 步骤1：MCP工具能力分析节点
  * @Date 2026/4/20 16:13
  */
 @Slf4j

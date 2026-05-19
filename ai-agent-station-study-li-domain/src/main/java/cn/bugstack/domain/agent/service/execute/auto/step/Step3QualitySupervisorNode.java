@@ -13,8 +13,7 @@ import org.springframework.stereotype.Service;
 /**
  * 质量监督节点
  *
- * @author xiaofuge bugstack.cn @小傅哥
- * 2025/7/27 16:43
+ * @author erbao
  */
 @Slf4j
 @Service

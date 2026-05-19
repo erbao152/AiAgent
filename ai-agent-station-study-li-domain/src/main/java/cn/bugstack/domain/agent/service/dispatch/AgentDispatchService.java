@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @Author erbao
- * @description:
+ * @description: Agent 服务接口
  * @Date 2026/4/20 20:25
  */
 @Slf4j
@@ -45,7 +45,7 @@ public class AgentDispatchService implements IAgentDispatchService {
             try {
                 executeStrategy.execute(requestParameter,emitter);
             } catch (Exception e) {
-                log.error("AutoAgent执行异常：{}", e.getMessage(), e);
+                log.error("Agent执行异常：{}", e.getMessage(), e);
                 try {
                     emitter.send("执行异常：" + e.getMessage());
                 }catch (Exception ex){

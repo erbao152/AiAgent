@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 /**
  * AI客户端模型配置响应 DTO
  *
- * @author bugstack虫洞栈
+ * @author erbao
  * @description AI客户端模型配置响应数据传输对象
  */
 @Data

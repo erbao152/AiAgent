@@ -18,7 +18,7 @@ spring:
     mysql:
       username: root
       password: 123456
-      url: jdbc:mysql://36.150.231.167:13306/ai-agent-station-study?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai&useSSL=true
+      url: jdbc:mysql://192.168.32.128:13306/ai-agent-station-study?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai&useSSL=true
       driver-class-name: com.mysql.cj.jdbc.Driver
       type: com.zaxxer.hikari.HikariDataSource
       hikari:
@@ -34,7 +34,7 @@ spring:
       driver-class-name: org.postgresql.Driver
       username: postgres
       password: 123456ok
-      url: jdbc:postgresql://36.150.231.167:15432/ai-rag-knowledge
+      url: jdbc:postgresql://192.168.32.128:15432/ai-rag-knowledge
       type: com.zaxxer.hikari.HikariDataSource
       hikari:
         maximum-pool-size: 5
@@ -50,6 +50,7 @@ spring:
         enabled: false
     # http://192.168.32.128:5601/ es
     # apiKey：bce-v3/ALTAK-dPLZ7O7MC4kTDXnXn21W6/211bc61af73233a3bb422e0573e38d52fb3398c2
+    # ds:sk-431bcf7155d9413f9c8dffcd5edb1030
 
 # MyBatis 配置【如需使用记得打开】
 #mybatis:

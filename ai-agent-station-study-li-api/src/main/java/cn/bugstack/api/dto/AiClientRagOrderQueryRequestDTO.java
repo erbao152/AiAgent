@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * 知识库配置查询请求 DTO
  *
- * @author bugstack虫洞栈
+ * @author erbao
  * @description 知识库配置查询请求数据传输对象
  */
 @Data

@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Ai Agent 服务接口
  *
- * @author xiaofuge bugstack.cn @小傅哥
+ * @author erbao
  * 2025/8/7 17:52
  */
 public interface IAiAgentService {

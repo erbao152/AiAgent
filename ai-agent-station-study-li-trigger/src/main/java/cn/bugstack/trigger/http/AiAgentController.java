@@ -23,7 +23,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @Author erbao
- * @description:
+ * @description: 智能对话体
  * @Date 2026/4/13 19:43
  */
 @Slf4j

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 /**
  * 聊天模型配置表
- * @author bugstack虫洞栈
+ * @author erbao
  * @description 聊天模型配置表 PO 对象
  */
 @Data

@@ -16,8 +16,7 @@ import java.util.List;
 
 /**
  * 知识库服务
- * @author xiaofuge bugstack.cn @小傅哥
- * 2025/10/4 09:12
+ * @author erbao
  */
 @Slf4j
 @Service

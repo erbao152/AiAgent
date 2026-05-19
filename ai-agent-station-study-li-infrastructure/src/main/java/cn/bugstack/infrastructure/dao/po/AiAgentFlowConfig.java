@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 /**
  * 智能体-客户端关联表
- * @author bugstack虫洞栈
+ * @author erbao
  * @description 智能体-客户端关联表 PO 对象
  */
 @Data

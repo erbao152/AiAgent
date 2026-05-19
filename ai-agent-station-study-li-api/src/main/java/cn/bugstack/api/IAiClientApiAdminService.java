@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * AI客户端API配置管理服务接口
  *
- * @author bugstack虫洞栈
+ * @author erbao
  * @description AI客户端API配置管理服务接口
  */
 public interface IAiClientApiAdminService {

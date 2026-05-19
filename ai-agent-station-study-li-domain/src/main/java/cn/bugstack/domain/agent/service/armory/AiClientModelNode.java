@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * @Author erbao
- * @description:
+ * @description: 对话模型节点配置
  * @Date 2026/4/11 19:25
  */
 @Slf4j

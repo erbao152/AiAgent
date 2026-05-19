@@ -1,10 +1,12 @@
 package cn.bugstack.domain.agent.service.execute.fixed;
 
 import cn.bugstack.domain.agent.adapter.repository.IAgentRepository;
+import cn.bugstack.domain.agent.model.entity.AutoAgentExecuteResultEntity;
 import cn.bugstack.domain.agent.model.entity.ExecuteCommandEntity;
 import cn.bugstack.domain.agent.model.valobj.AiAgentClientFlowConfigVO;
 import cn.bugstack.domain.agent.model.valobj.enums.AiAgentEnumVO;
 import cn.bugstack.domain.agent.service.IExecuteStrategy;
+import com.alibaba.fastjson2.JSON;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
@@ -17,7 +19,7 @@ import java.util.List;
 
 /**
  * @Author erbao
- * @description:
+ * @description: 固定执行策略
  * @Date 2026/4/22 16:35
  */
 @Slf4j
@@ -54,6 +56,14 @@ public class FixedAgentExecuteStrategy implements IExecuteStrategy {
         }
 
         log.info("智能体对话请求，结果 {} {}", requestParameter.getAiAgentId(), content);
+
+        // 发送最终结果通知（确保 content 不为空）
+        if (content != null && !content.trim().isEmpty()) {
+            sendFinalResult(emitter, content, requestParameter.getSessionId());
+        }
+
+        // 发送完成标识
+        sendCompleteResult(emitter, requestParameter.getSessionId());
     }
 
     private ChatClient getChatClientByClientId(String clientId) {
@@ -62,5 +72,33 @@ public class FixedAgentExecuteStrategy implements IExecuteStrategy {
 
     private <T> T getBean(String beanName) {
         return (T) applicationContext.getBean(beanName);
+    }
+
+    /**
+     * 发送最终结果到流式输出
+     */
+    private void sendFinalResult(ResponseBodyEmitter emitter, String content, String sessionId) {
+        try {
+            AutoAgentExecuteResultEntity result = AutoAgentExecuteResultEntity.createSummaryResult(content, sessionId);
+            String sseData = "data: " + JSON.toJSONString(result) + "\n\n";
+            emitter.send(sseData);
+            log.info("✅ 已发送最终结果");
+        } catch (Exception e) {
+            log.error("发送最终结果失败：{}", e.getMessage(), e);
+        }
+    }
+
+    /**
+     * 发送完成标识到流式输出
+     */
+    private void sendCompleteResult(ResponseBodyEmitter emitter, String sessionId) {
+        try {
+            AutoAgentExecuteResultEntity result = AutoAgentExecuteResultEntity.createCompleteResult(sessionId);
+            String sseData = "data: " + JSON.toJSONString(result) + "\n\n";
+            emitter.send(sseData);
+            log.info("✅ 已发送完成标识");
+        } catch (Exception e) {
+            log.error("发送完成标识失败：{}", e.getMessage(), e);
+        }
     }
 }

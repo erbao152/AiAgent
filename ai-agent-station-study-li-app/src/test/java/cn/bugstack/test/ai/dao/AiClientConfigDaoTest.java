@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * AI客户端统一关联配置表 DAO 测试
- * @author bugstack虫洞栈
+ * @author erbao
  * @description AI客户端统一关联配置表数据访问对象测试
  */
 @Slf4j

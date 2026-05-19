@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  * @Author erbao
- * @description:
+ * @description: 顾问类型枚举
  * @Date 2026/4/12 13:58
  */
 @Getter

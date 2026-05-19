@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * 数据统计响应 DTO
  *
- * @author xiaofuge bugstack.cn @小傅哥
+ * @author erbao
  * @description 数据统计响应数据传输对象
  */
 @Data
@@ -57,6 +57,8 @@ public class DataStatisticsResponseDTO implements Serializable {
      * 模型配置数量
      */
     private Long modelCount;
+
+    private Long modelApiCount;
 
     /**
      * 今日请求数量（模拟数据，实际项目中需要从日志或统计表获取）

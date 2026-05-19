@@ -745,8 +745,12 @@
                 </div>
                 
                 <!-- 输入框和发送按钮 -->
-                <input type="text" id="messageInput" placeholder="请输入您的问题..." maxlength="1000"
-                       class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-primary-300 focus:border-primary-500 outline-none transition-all duration-200 text-gray-700 placeholder-gray-400 text-sm">
+                <textarea
+                        id="messageInput"
+                        placeholder="请输入您的问题..."
+                        class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-primary-300 focus:border-primary-500 outline-none transition-all duration-200 text-gray-700 placeholder-gray-400 text-sm resize-none"
+                        rows="2"
+                ></textarea>
                 <button id="sendBtn" onclick="sendMessage()"
                         class="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-primary-500 transition-colors duration-200 font-medium flex items-center gap-1.5 text-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

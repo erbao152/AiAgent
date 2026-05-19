@@ -21,7 +21,7 @@ import java.util.Map;
 
 /**
  * @Author erbao
- * @description:
+ * @description: ai agent 客户端对话对象节点
  * @Date 2026/4/12 14:22
  */
 @Slf4j

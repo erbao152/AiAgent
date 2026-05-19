@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 /**
  * MCP客户端配置管理控制器
  *
- * @author bugstack虫洞栈
+ * @author erbao
  * @description MCP客户端配置管理控制器
  */
 @Slf4j

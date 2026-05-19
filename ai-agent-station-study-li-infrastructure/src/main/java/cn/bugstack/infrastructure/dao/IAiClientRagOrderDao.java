@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * 知识库配置表 DAO
- * @author bugstack虫洞栈
+ * @author erbao
  * @description 知识库配置表数据访问对象
  */
 @Mapper

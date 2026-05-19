@@ -18,8 +18,7 @@ import java.util.stream.Collectors;
 /**
  * 装配服务
  *
- * @author xiaofuge bugstack.cn @小傅哥
- * 2025/10/3 12:50
+ * @author erbao
  */
 @Service
 public class ArmoryService implements IArmoryService {

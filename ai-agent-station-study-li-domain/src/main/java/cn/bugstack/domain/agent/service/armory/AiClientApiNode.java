@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * @Author erbao
- * @description:
+ * @description: OpenAI API配置节点
  * @Date 2026/4/9 19:38
  */
 @Slf4j

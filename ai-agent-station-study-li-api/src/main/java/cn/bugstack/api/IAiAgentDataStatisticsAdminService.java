@@ -6,7 +6,7 @@ import cn.bugstack.api.response.Response;
 
 /**
  * 数据统计
- * @author xiaofuge bugstack.cn @小傅哥
+ * @author erbao
  * 2025/10/4 10:33
  */
 public interface IAiAgentDataStatisticsAdminService {

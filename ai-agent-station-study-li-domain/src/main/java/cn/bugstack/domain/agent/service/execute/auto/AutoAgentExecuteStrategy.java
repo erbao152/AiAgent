@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter
 
 /**
  * @Author erbao
- * @description:
+ * @description: 自动执行策略
  * @Date 2026/4/13 11:09
  */
 @Slf4j

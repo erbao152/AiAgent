@@ -11,7 +11,7 @@ import java.util.Date;
 /**
  * AI智能体拖拉拽配置响应DTO
  *
- * @author xiaofuge bugstack.cn @小傅哥
+ * @author erbao
  * 2025/1/20 10:00
  */
 @Data

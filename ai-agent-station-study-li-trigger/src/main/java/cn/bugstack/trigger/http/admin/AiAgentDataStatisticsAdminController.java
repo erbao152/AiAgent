@@ -14,8 +14,7 @@ import javax.annotation.Resource;
 /**
  * 数据统计
  *
- * @author xiaofuge bugstack.cn @小傅哥
- * 2025/10/4 10:33
+ * @author erbao
  */
 @Slf4j
 @RestController
@@ -62,6 +61,7 @@ public class AiAgentDataStatisticsAdminController implements IAiAgentDataStatist
             long ragOrderCount = (long) aiClientRagOrderDao.queryAll().size();
             long advisorCount = (long) aiClientAdvisorDao.queryAll().size();
             long modelCount = (long) aiClientModelDao.queryAll().size();
+            long modelApiCount = (long) aiClientApiDao.queryAll().size();
             
             // 构建响应数据
             DataStatisticsResponseDTO responseDTO = DataStatisticsResponseDTO.builder()
@@ -72,13 +72,14 @@ public class AiAgentDataStatisticsAdminController implements IAiAgentDataStatist
                     .ragOrderCount(ragOrderCount)
                     .advisorCount(advisorCount)
                     .modelCount(modelCount)
+                    .modelApiCount(modelApiCount)
                     .todayRequestCount(0L) // 暂时设为0，后续可以添加请求统计功能
                     .successRate(95.5) // 暂时设为固定值，后续可以添加成功率统计功能
                     .runningTaskCount(0L) // 暂时设为0，后续可以添加任务统计功能
                     .build();
             
-            log.info("系统数据统计获取成功：智能体数量={}, 客户端数量={}, MCP工具数量={}, 系统提示数量={}, 知识库数量={}, 顾问数量={}, 模型数量={}", 
-                    agentCount, clientCount, mcpToolCount, systemPromptCount, ragOrderCount, advisorCount, modelCount);
+            log.info("系统数据统计获取成功：智能体数量={}, 客户端数量={}, MCP工具数量={}, 系统提示数量={}, 知识库数量={}, 顾问数量={}, 模型数量={}, 模型API数量={}", 
+                    agentCount, clientCount, mcpToolCount, systemPromptCount, ragOrderCount, advisorCount, modelCount, modelApiCount);
             
             return Response.<DataStatisticsResponseDTO>builder()
                     .code(ResponseCode.SUCCESS.getCode())

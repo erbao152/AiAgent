@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * 管理员用户表 DAO
- * @author bugstack虫洞栈
+ * @author erbao
  * @description 管理员用户表数据访问对象
  */
 @Mapper

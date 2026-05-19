@@ -111,12 +111,12 @@ public class OpenAiTest {
     @Test
     public void upload() {
         // textResource、articlePromptWordsResource
-        TikaDocumentReader reader = new TikaDocumentReader(articlePromptWordsResource);
+        TikaDocumentReader reader = new TikaDocumentReader(textResource);
 
         List<Document> documents = reader.get();
         List<Document> documentSplitterList = tokenTextSplitter.apply(documents);
 
-        documentSplitterList.forEach(doc -> doc.getMetadata().put("knowledge", "article-prompt-words"));
+        documentSplitterList.forEach(doc -> doc.getMetadata().put("knowledge", "知识库名称-v4"));
 
         pgVectorStore.accept(documentSplitterList);
 

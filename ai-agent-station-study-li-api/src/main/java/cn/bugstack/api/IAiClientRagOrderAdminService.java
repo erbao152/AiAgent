@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * 知识库配置管理服务接口
  *
- * @author bugstack虫洞栈
+ * @author erbao
  * @description 知识库配置管理服务接口
  */
 public interface IAiClientRagOrderAdminService {

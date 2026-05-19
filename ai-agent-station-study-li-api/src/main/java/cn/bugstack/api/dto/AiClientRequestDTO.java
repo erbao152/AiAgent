@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * AI客户端配置请求 DTO
  *
- * @author bugstack虫洞栈
+ * @author erbao
  * @description AI客户端配置请求数据传输对象
  */
 @Data
