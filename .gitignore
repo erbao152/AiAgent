@@ -37,5 +37,6 @@ build/
 ### Mac OS ###
 .DS_Store
 /data/
-/data/
 /docs/
+/ai-agent-station-study-li-app/src/test/
+/ai-agent-station-study-li-app/data/
